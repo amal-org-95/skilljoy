@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "225443233253",
+    "project_id": "myfinalproject-b7306",
+    "storage_bucket": "myfinalproject-b7306.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225443233253:android:d166649242ef6ba055c30c",
+        "android_client_info": {
+          "package_name": "com.skilljoy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225443233253-l8i70mcvdpf12kkd3s5asmikdfih5k2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skilljoy",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "225443233253-m57a5t1t0g46mblfl62h511sncprgc0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIwpPp1pmMs0S5hGhWkRHcyYvVExZrssY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225443233253-apc5etqtik4gtevet9tdtc3np9fgebov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
