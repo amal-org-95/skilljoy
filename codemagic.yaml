@@ -16,17 +16,23 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
+          cd SkillJoy
           npm install
-          cd android && ./gradlew dependencies && cd ..
-          cd ios && pod install && cd ..
+          cd android
+          chmod +x ./gradlew
+          ./gradlew dependencies
+          cd ../ios
+          pod install
+          cd ..
 
       - name: Build Android
         script: |
-          cd android
+          cd SkillJoy/android
           ./gradlew assembleRelease
 
       - name: Build iOS
         script: |
+          cd SkillJoy
           xcodebuild \
             -project ios/${XCODE_PROJECT} \
             -scheme ${XCODE_SCHEME} \
@@ -37,22 +43,23 @@ workflows:
 
       - name: Export iOS .ipa
         script: |
+          cd SkillJoy
           xcodebuild -exportArchive \
             -archivePath $CM_BUILD_DIR/SkillJoy.xcarchive \
             -exportOptionsPlist ios/ExportOptions.plist \
             -exportPath $CM_BUILD_DIR/build/ios
 
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - SkillJoy/android/app/build/outputs/**/*.apk
       - build/ios/*.ipa
 
     #publishing:
       #app_store_connect:
-       # api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        #api_key: $APP_STORE_CONNECT_PRIVATE_KEY
         #key_id: $APP_STORE_CONNECT_KEY_ID
         #issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         #submit_to_testflight: true
 
-     # google_play:
-       # credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-       # track: internal
+      #google_play:
+        #credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        #track: internal
