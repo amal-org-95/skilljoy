@@ -68,6 +68,11 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    // ✅ تم نقل packagingOptions إلى داخل android كما يجب
+    packagingOptions {
+        doNotStrip "**/*.so"
+    }
 }
 
 dependencies {
