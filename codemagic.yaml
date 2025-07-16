@@ -1,0 +1,64 @@
+workflows:
+  full-release:
+    name: Build & Deploy (iOS + Android)
+    max_build_duration: 60
+    environment:
+      groups:
+        - app_store_credentials     # يحتوي على APP_STORE_CONNECT_PRIVATE_KEY، APP_STORE_CONNECT_KEY_ID، إلخ
+        - google_play_credentials   # يحتوي على GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+      vars:
+        XCODE_PROJECT: "SkillJoy.xcodeproj"
+        XCODE_SCHEME: "SkillJoy"
+        BUNDLE_ID: "org.reactjs.native.example.SkillJoy"  # عدّل لاحقًا إذا غيّرت الـ bundle id
+      node: latest
+      xcode: latest
+      java: 17
+
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+          cd android
+          chmod +x ./gradlew
+          ./gradlew dependencies
+          cd ../ios
+          pod install
+          cd ..
+
+      - name: Build Android
+        script: |
+          cd android
+          ./gradlew assembleRelease
+
+      - name: Build iOS
+        script: |
+          xcodebuild \
+            -project ios/${XCODE_PROJECT} \
+            -scheme ${XCODE_SCHEME} \
+            -sdk iphoneos \
+            -configuration Release \
+            -allowProvisioningUpdates \
+            archive -archivePath $CM_BUILD_DIR/SkillJoy.xcarchive
+
+      - name: Export iOS .ipa
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath $CM_BUILD_DIR/SkillJoy.xcarchive \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath $CM_BUILD_DIR/build/ios
+
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+      - build/ios/*.ipa
+
+    # يمكنك تفعيل النشر لاحقًا عند الحاجة:
+    # publishing:
+    #   app_store_connect:
+    #     api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+    #     key_id: $APP_STORE_CONNECT_KEY_ID
+    #     issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+    #     submit_to_testflight: true
+
+    #   google_play:
+    #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+    #     track: internal
