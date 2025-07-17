@@ -21,7 +21,7 @@ workflows:
       xcode: latest
       java: 17
 
-    scripts:
+      scripts:
       - name: Install dependencies
         script: |
           npm install
@@ -54,7 +54,7 @@ workflows:
             -exportOptionsPlist ios/ExportOptions.plist \
             -exportPath $CM_BUILD_DIR/build/ios
 
-    artifacts:
+        artifacts:
       - android/app/build/outputs/**/*.apk
       - build/ios/*.ipa
 
