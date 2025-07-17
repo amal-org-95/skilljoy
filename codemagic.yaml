@@ -3,25 +3,25 @@ workflows:
     name: Build & Deploy (iOS + Android)
     max_build_duration: 60
     environment:
-  android_signing:
-    - name: my-release-key.keystore           # اسم التوقيع (مفتاح تعريف)
-      filePath: myfinalproject\SkillJoy\android\app\my-release-key.keystore    # مسار ملف keystore في المشروع أو مسار الـ secure file
-      type: keystore                    # نوع الملف (عادة keystore)
-      group: release-keystore-group            # اسم مجموعة البيئة التي تحتوي المتغيرات السرية (إذا كنت تستخدم environment groups)
-      source: codemagic                 # مصدر التوقيع: codemagic أو repository (إذا رفعته مع الكود)
+      android_signing:
+        keystore_reference: skilljoy-keystore
+        keystore_password: 28282036271995
+        key_alias: skilljoy-key-alias
+        key_password: 28282036271995
 
       groups:
         - app_store_credentials     # يحتوي على APP_STORE_CONNECT_PRIVATE_KEY، APP_STORE_CONNECT_KEY_ID، إلخ
         - google_play_credentials   # يحتوي على GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+
       vars:
         XCODE_PROJECT: "SkillJoy.xcodeproj"
         XCODE_SCHEME: "SkillJoy"
-        BUNDLE_ID: "org.reactjs.native.example.SkillJoy"  # عدّل لاحقًا إذا غيّرت الـ bundle id
+        BUNDLE_ID: "org.reactjs.native.example.SkillJoy"
       node: latest
       xcode: latest
       java: 17
 
-      scripts:
+    scripts:
       - name: Install dependencies
         script: |
           npm install
@@ -54,7 +54,7 @@ workflows:
             -exportOptionsPlist ios/ExportOptions.plist \
             -exportPath $CM_BUILD_DIR/build/ios
 
-        artifacts:
+    artifacts:
       - android/app/build/outputs/**/*.apk
       - build/ios/*.ipa
 
