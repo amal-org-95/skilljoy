@@ -4,10 +4,10 @@ workflows:
     max_build_duration: 60
     environment:
       android_signing:
-        - keystore_reference: CM_KEYSTORE
-          keystore_password: CM_KEYSTORE_PASSWORD
-          key_alias: CM_KEY_ALIAS
-          key_password: CM_KEY_PASSWORD
+        - keystore_reference: skilljoy-keystore
+          keystore_password: 28282036271995
+          key_alias: skilljoy-key-alias
+          key_password: 28282036271995
       groups:
         - app_store_credentials     # يحتوي على APP_STORE_CONNECT_PRIVATE_KEY، APP_STORE_CONNECT_KEY_ID، إلخ
         - google_play_credentials   # يحتوي على GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
