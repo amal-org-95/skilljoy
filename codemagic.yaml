@@ -5,8 +5,7 @@ workflows:
 
     environment:
       groups:
-        - app_store_credentials     # يحتوي على APP_STORE_CONNECT_PRIVATE_KEY، APP_STORE_CONNECT_KEY_ID، إلخ
-        - google_play_credentials   # يحتوي على GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        
         - release-keystore-group    # يحتوي على keystore وبياناته
 
       vars:
