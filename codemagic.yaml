@@ -52,7 +52,8 @@ workflows:
     artifacts:
       - android/app/build/outputs/**/*.apk
       - build/ios/*.ipa
-
+    files:
+      - my-release-key.keystore
     # يمكنك تفعيل النشر لاحقًا عند الحاجة:
     # publishing:
     #   app_store_connect:
