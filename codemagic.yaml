@@ -3,21 +3,11 @@ workflows:
     name: Build & Deploy (iOS + Android)
     max_build_duration: 60
 
-    
-
     environment:
-
-    signing:
-    android:
-      keystore_path: C:\Users\Admin\Desktop\myfinalproject\SkillJoy\android\app\my-release-key.keystore
-      keystore_password: 28282036271995
-      key_alias: skilljoy-key-alias
-      key_password: 28282036271995
-
-
       groups:
         - app_store_credentials     # يحتوي على APP_STORE_CONNECT_PRIVATE_KEY، APP_STORE_CONNECT_KEY_ID، إلخ
         - google_play_credentials   # يحتوي على GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        - release-keystore-group    # يحتوي على keystore وبياناته
 
       vars:
         XCODE_PROJECT: "SkillJoy.xcodeproj"
