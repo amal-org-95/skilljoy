@@ -5,8 +5,7 @@ workflows:
 
     environment:
       groups:
-        
-        - release-keystore-group    # يحتوي على keystore وبياناته
+        - release-keystore-group  # يحتوي على keystore وبياناته
 
       vars:
         XCODE_PROJECT: "SkillJoy.xcodeproj"
@@ -52,8 +51,7 @@ workflows:
     artifacts:
       - android/app/build/outputs/**/*.apk
       - build/ios/*.ipa
-    files:
-      - my-release-key.keystore
+
     # يمكنك تفعيل النشر لاحقًا عند الحاجة:
     # publishing:
     #   app_store_connect:
