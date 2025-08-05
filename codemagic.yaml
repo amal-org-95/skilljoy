@@ -15,11 +15,7 @@ workflows:
       xcode: latest
       java: 17
 
-    android_signing:
-      keystore: my-release-key.keystore
-      keystore_password: 28282036271995
-      key_alias: skilljoy-key-alias
-      key_password: 28282036271995
+    
 
     scripts:
       - name: Install dependencies
