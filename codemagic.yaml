@@ -15,6 +15,8 @@ workflows:
         XCODE_PROJECT: "SkillJoy.xcodeproj"
         XCODE_SCHEME: "SkillJoy"
         BUNDLE_ID: "org.reactjs.native.example.SkillJoy"
+        CM_KEYSTORE_PATH: android/app/my-release-key.keystore  # ✅ أضف هذا السطر هنا
+
       node: latest
       xcode: latest
       java: 17
