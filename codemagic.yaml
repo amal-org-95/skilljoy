@@ -5,7 +5,11 @@ workflows:
 
     environment:
       groups:
-        - release-keystore-group  # يحتوي على keystore وبياناته (CM_KEYSTORE, CM_KEYSTORE_PASSWORD, CM_KEY_ALIAS, CM_KEY_PASSWORD)
+        - release-keystore-group  # يحتوي على المتغيرات التالية:
+                                  # CM_KEYSTORE
+                                  # CM_KEYSTORE_PASSWORD
+                                  # CM_KEY_ALIAS
+                                  # CM_KEY_PASSWORD
 
       vars:
         XCODE_PROJECT: "SkillJoy.xcodeproj"
@@ -14,8 +18,6 @@ workflows:
       node: latest
       xcode: latest
       java: 17
-
-    
 
     scripts:
       - name: Install dependencies
@@ -28,10 +30,14 @@ workflows:
           pod install
           cd ..
 
+      - name: Decode keystore
+        script: |
+          echo $CM_KEYSTORE | base64 --decode > android/app/my-release-key.keystore
+
       - name: Build Android
         script: |
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease -PKEYSTORE_PASSWORD=$CM_KEYSTORE_PASSWORD -PKEY_ALIAS=$CM_KEY_ALIAS -PKEY_PASSWORD=$CM_KEY_PASSWORD
 
       - name: Build iOS
         script: |
